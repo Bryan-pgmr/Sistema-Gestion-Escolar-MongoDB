@@ -1,0 +1,449 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #243247;
+    background: #f3f6fb;
+    line-height: 1.5;
+}
+
+a {
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.inicio-encabezado {
+    background: #142945;
+    color: white;
+    padding: 20px 7%;
+}
+
+.inicio-encabezado-contenido {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.inicio-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.inicio-encabezado h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.inicio-encabezado p {
+    margin: 8px 0 0;
+    color: #d4e4f7;
+}
+
+.inicio-menu {
+    background: #164d92;
+    padding: 16px;
+    text-align: center;
+}
+
+.inicio-menu a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+}
+
+.inicio-menu a:hover {
+    color: #c3defc;
+}
+
+.inicio-contenedor {
+    max-width: 1150px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.inicio-bienvenida {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.inicio-bienvenida h2 {
+    color: #142945;
+    font-size: 30px;
+}
+
+.inicio-bienvenida p {
+    color: #59677b;
+    line-height: 1.7;
+}
+
+.inicio-modulos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.inicio-tarjeta {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+
+.inicio-tarjeta:hover {
+    transform: translateY(-5px);
+}
+
+.inicio-tarjeta h3 {
+    color: #164d92;
+    font-size: 23px;
+}
+
+.inicio-tarjeta p {
+    color: #59677b;
+    line-height: 1.6;
+}
+
+.inicio-icono {
+    font-size: 45px;
+}
+
+.inicio-boton {
+    display: inline-block;
+    background: #164d92;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 7px;
+    text-decoration: none;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.inicio-boton:hover {
+    background: #103b70;
+}
+
+.inicio-resumen {
+    background: white;
+    padding: 30px;
+    margin-top: 35px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.inicio-resumen h2,
+.inicio-galeria h2,
+.inicio-equipo h2 {
+    color: #142945;
+}
+
+.inicio-numero {
+    font-size: 45px;
+    font-weight: bold;
+    color: #164d92;
+    margin: 10px;
+}
+
+.inicio-galeria {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.inicio-imagenes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.inicio-imagenes img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.inicio-equipo {
+    background: white;
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.inicio-equipo ul {
+    list-style: none;
+    padding: 0;
+    line-height: 2.2;
+}
+
+.inicio-footer {
+    background: #142945;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+.inicio-footer p {
+    margin: 7px;
+}
+
+.pagina-gestion .barra {
+    background: #142945;
+    padding: 16px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pagina-gestion .marca {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.pagina-gestion .barra nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pagina-gestion .barra nav a {
+    color: #e9f0fa;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.pagina-gestion .barra nav a:hover {
+    text-decoration: underline;
+}
+
+.pagina-gestion .contenedor {
+    max-width: 1170px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.pagina-gestion h1 {
+    margin-bottom: 7px;
+    font-size: 29px;
+    color: #142945;
+}
+
+.pagina-gestion .subtitulo {
+    margin-top: 0;
+    color: #59677b;
+}
+
+.pagina-gestion .panel {
+    background: white;
+    border-radius: 12px;
+    padding: 23px;
+    margin-top: 23px;
+    box-shadow: 0 4px 15px rgba(15,35,65,0.07);
+}
+
+.pagina-gestion .panel h2 {
+    font-size: 20px;
+    margin: 0 0 16px;
+    color: #164d92;
+}
+
+.pagina-gestion label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pagina-gestion input:not([type="hidden"]),
+.pagina-gestion select {
+    width: 100%;
+    padding: 10px 11px;
+    border: 1px solid #ccd5e1;
+    border-radius: 7px;
+    background: white;
+    font-size: 14px;
+    color: #17233a;
+}
+
+.pagina-gestion input:focus,
+.pagina-gestion select:focus {
+    outline: 2px solid #a0bfe6;
+}
+
+.pagina-gestion .campos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.pagina-gestion .acciones,
+.pagina-gestion .busqueda {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+.pagina-gestion .busqueda > div {
+    flex: 1 1 240px;
+}
+
+.pagina-gestion .acciones {
+    margin-top: 17px;
+}
+
+.pagina-gestion .boton {
+    display: inline-block;
+    border: 0;
+    border-radius: 7px;
+    padding: 10px 14px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #164d92;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pagina-gestion .boton:hover {
+    filter: brightness(0.92);
+}
+
+.pagina-gestion .boton.secundario {
+    background: #e6ebf2;
+    color: #21334b;
+}
+
+.pagina-gestion .boton.peligro {
+    background: #b52732;
+    color: white;
+}
+
+.pagina-gestion .tabla-desplazable {
+    overflow-x: auto;
+}
+
+.pagina-gestion table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 820px;
+}
+
+.pagina-gestion th,
+.pagina-gestion td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e6ebf2;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.pagina-gestion th {
+    background: #eaf0f7;
+    color: #1b3553;
+}
+
+.pagina-gestion tbody tr:hover {
+    background: #f8fafc;
+}
+
+.pagina-gestion .controles {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.pagina-gestion .controles form {
+    margin: 0;
+}
+
+.pagina-gestion .aviso {
+    border: 1px solid #a4c1e4;
+    background: #eaf3ff;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.pagina-gestion details {
+    margin-top: 12px;
+}
+
+.pagina-gestion summary {
+    cursor: pointer;
+    color: #164d92;
+    font-weight: bold;
+}
+
+.pagina-gestion .editar {
+    padding: 16px;
+    border: 1px solid #dce4ee;
+    border-radius: 9px;
+    margin-top: 10px;
+    background: #f8fafc;
+}
+
+.pagina-gestion .nota {
+    color: #59677b;
+    font-size: 13px;
+}
+
+.pagina-gestion footer,
+.pagina-gestion .gestion-footer {
+    text-align: center;
+    padding: 28px 12px;
+    color: #64748b;
+}
+
+@media (max-width: 850px) {
+    .pagina-gestion .campos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .inicio-encabezado-contenido {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .inicio-modulos,
+    .inicio-imagenes {
+        grid-template-columns: 1fr;
+    }
+
+    .inicio-menu a {
+        display: inline-block;
+        margin: 8px;
+    }
+}
+
+@media (max-width: 500px) {
+    .pagina-gestion .campos {
+        grid-template-columns: 1fr;
+    }
+
+    .pagina-gestion .contenedor {
+        margin-top: 20px;
+    }
+
+    .pagina-gestion .panel {
+        padding: 16px;
+    }
+}

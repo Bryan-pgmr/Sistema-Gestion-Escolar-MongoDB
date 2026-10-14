@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inicio | Sistema de Gestión Escolar</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+
+<body class="pagina-inicio">
+
+    <!-- ENCABEZADO -->
+
+    <header class="inicio-encabezado">
+        <div class="inicio-encabezado-contenido">
+
+            <img
+                src="{{ url_for('static', filename='logo_tec_mina.jpg') }}"
+                class="inicio-logo"
+                alt="Logo del Tecnológico de Minatitlán">
+
+            <div>
+                <h1>Sistema de Gestión Escolar</h1>
+                <p>
+                    Tecnológico Nacional de México
+                    - Campus Minatitlán
+                </p>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MENU -->
+
+    <nav class="inicio-menu">
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('alumnos') }}">Alumnos</a>
+        <a href="{{ url_for('materias') }}">Materias</a>
+    </nav>
+
+    <main class="inicio-contenedor">
+
+        <!-- BIENVENIDA -->
+
+        <section class="inicio-bienvenida">
+
+            <h2>Bienvenido al Sistema de Gestión Escolar</h2>
+
+            <p>
+                Esta plataforma permite administrar la información
+                académica mediante una aplicación web desarrollada
+                con Python, Flask y MongoDB.
+            </p>
+
+            <p>
+                Desde este sistema se pueden consultar, registrar,
+                modificar y eliminar alumnos y materias,
+                facilitando la organización de la información.
+            </p>
+
+        </section>
+
+        <!-- MODULOS -->
+
+        <section class="inicio-modulos">
+
+            <article class="inicio-tarjeta">
+
+                <div class="inicio-icono">🎓</div>
+
+                <h3>Módulo de Alumnos</h3>
+
+                <p>
+                    Consulta los alumnos registrados,
+                    agrega nuevos estudiantes,
+                    modifica su información personal
+                    y administra sus calificaciones.
+                </p>
+
+                <a href="{{ url_for('alumnos') }}"
+                   class="inicio-boton">
+                    Administrar Alumnos
+                </a>
+
+            </article>
+
+            <article class="inicio-tarjeta">
+
+                <div class="inicio-icono">📚</div>
+
+                <h3>Módulo de Materias</h3>
+
+                <p>
+                    Consulta las materias registradas,
+                    agrega nuevas asignaturas,
+                    modifica su información
+                    y elimina registros cuando sea necesario.
+                </p>
+
+                <a href="{{ url_for('materias') }}"
+                   class="inicio-boton">
+                    Administrar Materias
+                </a>
+
+            </article>
+
+        </section>
+
+        <!-- RESUMEN -->
+
+        <section class="inicio-resumen">
+
+            <h2>Resumen del Sistema</h2>
+
+            <p>Alumnos registrados en MongoDB</p>
+
+            <div class="inicio-numero">
+                {{ alumnos|length }}
+            </div>
+
+            <p>
+                Base de datos utilizada:
+                <strong>ITMg1</strong>
+            </p>
+
+        </section>
+
+        <!-- GALERIA -->
+
+        <section class="inicio-galeria">
+
+            <h2>Galería</h2>
+
+            <p>
+                Imágenes relacionadas con el proyecto escolar.
+            </p>
+
+            <div class="inicio-imagenes">
+
+                <img
+                    src="{{ url_for('static', filename='img/img1.jpg') }}"
+                    alt="Imagen escolar 1">
+
+                <img
+                    src="{{ url_for('static', filename='img/img2.jpg') }}"
+                    alt="Imagen escolar 2">
+
+                <img
+                    src="{{ url_for('static', filename='img/img3.jpg') }}"
+                    alt="Imagen escolar 3">
+
+                <img
+                    src="{{ url_for('static', filename='img/img4.webp') }}"
+                    alt="Imagen escolar 4">
+                
+                <img
+                    src="{{ url_for('static', filename='img/img5.webp') }}"
+                    alt="Imagen escolar 5"> 
+
+                <img
+                    src="{{ url_for('static', filename='img/img6.webp') }}"
+                    alt="Imagen escolar 6">    
+
+            </div>
+
+        </section>
+
+        <!-- INTEGRANTES -->
+
+        <section class="inicio-equipo">
+
+            <h2>Integrantes del Equipo</h2>
+
+            <p>
+                Desarrollo del Sistema de Gestión Escolar
+            </p>
+
+            <ul>
+                <li>Luis Alberto Figueroa Gonzalez</li>
+                <li>Angel David Garcia Blas</li>
+                <li>Ruben Jimenez Quinto</li>
+                <li>Bryan Yael Joachin Cruz</li>
+            </ul>
+
+        </section>
+
+    </main>
+
+    <!-- PIE DE PAGINA -->
+
+    <footer class="inicio-footer">
+
+        <p>Sistema de Gestión Escolar</p>
+        <p>Python | Flask | MongoDB</p>
+        <p>Base de datos ITMg1</p>
+
+        <p>
+            Tecnológico Nacional de México
+            - Campus Minatitlán
+        </p>
+
+    </footer>
+
+</body>
+</html>

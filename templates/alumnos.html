@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión de Alumnos | ITMg1</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+
+<body class="pagina-gestion pagina-alumnos">
+
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header class="barra">
+        <div class="marca">Sistema de Gestión Escolar</div>
+
+        <nav aria-label="Menú principal">
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('alumnos') }}">Alumnos</a>
+            <a href="{{ url_for('materias') }}">Materias</a>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        <h1>Administración de Alumnos</h1>
+        <p class="subtitulo">
+            Consultar, registrar, actualizar y eliminar alumnos.
+        </p>
+
+        <!-- MENSAJES -->
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                {% for mensaje in mensajes %}
+                    <div class="aviso" role="status">
+                        {{ mensaje }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- BUSCAR ALUMNO -->
+        <section class="panel">
+            <h2>Buscar alumno</h2>
+
+            <form method="POST"
+                  action="{{ url_for('alumnos') }}"
+                  class="busqueda">
+
+                <div>
+                    <label for="buscar_control">
+                        Número de control
+                    </label>
+                    <input id="buscar_control"
+                           name="Ncontrol"
+                           type="text"
+                           placeholder="Ejemplo: 01">
+                </div>
+
+                <button class="boton" type="submit">
+                    Buscar
+                </button>
+
+                <a class="boton secundario"
+                   href="{{ url_for('alumnos') }}">
+                    Mostrar todos
+                </a>
+            </form>
+        </section>
+
+        <!-- AGREGAR ALUMNO -->
+        <section class="panel">
+            <h2>Agregar nuevo alumno</h2>
+
+            <form method="POST"
+                  action="{{ url_for('agregar_alumno') }}">
+
+                <div class="campos">
+
+                    <div>
+                        <label for="ncontrol">Número de control</label>
+                        <input id="ncontrol"
+                               name="ncontrol"
+                               type="text"
+                               placeholder="08"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="nombre">Nombre(s)</label>
+                        <input id="nombre"
+                               name="nombre"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="paterno">Apellido paterno</label>
+                        <input id="paterno"
+                               name="paterno"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="materno">Apellido materno</label>
+                        <input id="materno"
+                               name="materno"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="carrera">Carrera</label>
+                        <input id="carrera"
+                               name="carrera"
+                               placeholder="isc"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="sexo">Sexo</label>
+                        <select id="sexo" name="sexo" required>
+                            <option value="">Selecciona</option>
+                            <option value="h">Hombre (h)</option>
+                            <option value="m">Mujer (m)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="edad">Edad</label>
+                        <input id="edad"
+                               name="edad"
+                               type="number"
+                               min="0"
+                               max="120"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="calificaciones">Calificaciones</label>
+                        <input id="calificaciones"
+                               name="calificaciones"
+                               placeholder="90,80,100"
+                               required>
+                    </div>
+
+                </div>
+
+                <p class="nota">
+                    Separa las calificaciones con comas.
+                    El número de control se guarda como texto.
+                </p>
+
+                <div class="acciones">
+                    <button class="boton" type="submit">
+                        Guardar alumno
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- LISTADO DE ALUMNOS -->
+        <section class="panel">
+            <h2>Alumnos registrados ({{ alumnos|length }})</h2>
+
+            <div class="tabla-desplazable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Control</th>
+                            <th>Nombre completo</th>
+                            <th>Carrera</th>
+                            <th>Sexo</th>
+                            <th>Edad</th>
+                            <th>Calificaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for alumno in alumnos %}
+
+                        <tr>
+                            <td>{{ alumno.get('ncontrol', '') }}</td>
+
+                            <td>
+                                {{ alumno.get('nombre', '') }}
+                                {{ alumno.get('paterno', '') }}
+                                {{ alumno.get('materno', '') }}
+                            </td>
+
+                            <td>{{ alumno.get('carrera', '')|upper }}</td>
+                            <td>{{ alumno.get('sexo', '')|upper }}</td>
+                            <td>{{ alumno.get('edad', '') }}</td>
+
+                            <td>
+                                {{ alumno.get('calificaciones', [])|join(', ') }}
+                            </td>
+
+                            <td>
+                                <div class="controles">
+                                    <a class="boton secundario"
+                                       href="#editar-{{ alumno['_id'] }}">
+                                        Editar
+                                    </a>
+
+                                    <form method="POST"
+                                          action="{{ url_for('eliminar_alumno') }}"
+                                          onsubmit="return confirm('¿Seguro que quieres eliminar a este alumno?');">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="{{ alumno['_id'] }}">
+
+                                        <button class="boton peligro"
+                                                type="submit">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- EDITAR ALUMNO -->
+                        <tr id="editar-{{ alumno['_id'] }}">
+                            <td colspan="7">
+                                <details>
+                                    <summary>
+                                        Editar datos de
+                                        {{ alumno.get('nombre', '') }}
+                                        ({{ alumno.get('ncontrol', '') }})
+                                    </summary>
+
+                                    <form class="editar"
+                                          method="POST"
+                                          action="{{ url_for('editar_alumno', id=alumno['_id']) }}">
+
+                                        <div class="campos">
+
+                                            <div>
+                                                <label>Número de control</label>
+                                                <input name="ncontrol"
+                                                       value="{{ alumno.get('ncontrol', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Nombre(s)</label>
+                                                <input name="nombre"
+                                                       value="{{ alumno.get('nombre', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Apellido paterno</label>
+                                                <input name="paterno"
+                                                       value="{{ alumno.get('paterno', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Apellido materno</label>
+                                                <input name="materno"
+                                                       value="{{ alumno.get('materno', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Carrera</label>
+                                                <input name="carrera"
+                                                       value="{{ alumno.get('carrera', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Sexo</label>
+                                                <select name="sexo">
+                                                    <option value="h"
+                                                        {% if alumno.get('sexo') == 'h' %}
+                                                            selected
+                                                        {% endif %}>
+                                                        Hombre (h)
+                                                    </option>
+
+                                                    <option value="m"
+                                                        {% if alumno.get('sexo') == 'm' %}
+                                                            selected
+                                                        {% endif %}>
+                                                        Mujer (m)
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label>Edad</label>
+                                                <input name="edad"
+                                                       type="number"
+                                                       min="0"
+                                                       max="120"
+                                                       value="{{ alumno.get('edad', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Calificaciones</label>
+                                                <input name="calificaciones"
+                                                       value="{{ alumno.get('calificaciones', [])|join(',') }}"
+                                                       required>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="acciones">
+                                            <button class="boton" type="submit">
+                                                Guardar cambios
+                                            </button>
+                                        </div>
+                                    </form>
+                                </details>
+                            </td>
+                        </tr>
+
+                        {% else %}
+                        <tr>
+                            <td colspan="7">
+                                No hay alumnos que mostrar.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gestion-footer">
+        Sistema de Gestión Escolar · MongoDB · ITMg1
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#editar-"]')
+            .forEach(enlace => {
+                enlace.addEventListener('click', () => {
+                    const destino = document.querySelector(
+                        enlace.getAttribute('href')
+                    );
+
+                    if (destino) {
+                        destino.querySelector('details').open = true;
+                    }
+                });
+            });
+    </script>
+
+</body>
+</html>

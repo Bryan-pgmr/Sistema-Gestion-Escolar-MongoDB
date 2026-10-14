@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión de Materias</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+
+<body class="pagina-gestion pagina-materias">
+
+    <!-- ENCABEZADO -->
+    <header class="barra">
+        <div class="marca">Sistema de Gestión Escolar</div>
+
+        <nav aria-label="Menú principal">
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('alumnos') }}">Alumnos</a>
+            <a href="{{ url_for('materias') }}">Materias</a>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+
+        <h1>Administración de Materias</h1>
+
+        <p class="subtitulo">
+            Consulta, registra, modifica y elimina
+            las materias.
+        </p>
+
+        <!-- MENSAJES -->
+        {% with mensajes = get_flashed_messages() %}
+            {% for mensaje in mensajes %}
+                <div class="aviso" role="status">
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <!-- BUSCAR MATERIAS -->
+        <section class="panel">
+            <h2>Buscar materia</h2>
+
+            <form method="POST"
+                  action="{{ url_for('materias') }}"
+                  class="busqueda">
+
+                <div>
+                    <label for="buscar_materia">
+                        Clave de materia
+                    </label>
+
+                    <input id="buscar_materia"
+                           name="id_materia"
+                           placeholder="Ejemplo: isc01">
+                </div>
+
+                <button class="boton" type="submit">
+                    Buscar
+                </button>
+
+                <a class="boton secundario"
+                   href="{{ url_for('materias') }}">
+                    Mostrar todas
+                </a>
+            </form>
+        </section>
+
+        <!-- AGREGAR MATERIA -->
+        <section class="panel">
+            <h2>Agregar nueva materia</h2>
+
+            <form method="POST"
+                  action="{{ url_for('agregar_materia') }}">
+
+                <div class="campos">
+
+                    <div>
+                        <label for="id_materia">Clave</label>
+                        <input id="id_materia"
+                               name="id_materia"
+                               placeholder="isc08"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="nombre_materia">Nombre</label>
+                        <input id="nombre_materia"
+                               name="nombre"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="carrera_materia">Carrera</label>
+                        <input id="carrera_materia"
+                               name="carrera"
+                               placeholder="isc"
+                               required>
+                    </div>
+
+                    <div>
+                        <label for="semestre_materia">Semestre</label>
+                        <input id="semestre_materia"
+                               name="semestre"
+                               type="number"
+                               min="1"
+                               max="12"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="acciones">
+                    <button class="boton" type="submit">
+                        Guardar materia
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- LISTADO DE MATERIAS -->
+        <section class="panel">
+            <h2>
+                Materias registradas ({{ materias|length }})
+            </h2>
+
+            <div class="tabla-desplazable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Clave</th>
+                            <th>Nombre</th>
+                            <th>Carrera</th>
+                            <th>Semestre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for materia in materias %}
+
+                        <tr>
+                            <td>
+                                {{ materia.get('id_materia', '') }}
+                            </td>
+
+                            <td>
+                                {{ materia.get('nombre', '') }}
+                            </td>
+
+                            <td>
+                                {{ materia.get('carrera', '')|upper }}
+                            </td>
+
+                            <td>
+                                {{ materia.get('semestre', '') }}
+                            </td>
+
+                            <td>
+                                <div class="controles">
+
+                                    <a class="boton secundario"
+                                       href="#editar-{{ materia['_id'] }}">
+                                        Editar
+                                    </a>
+
+                                    <form method="POST"
+                                          action="{{ url_for('eliminar_materia') }}"
+                                          onsubmit="return confirm('¿Seguro que deseas eliminar esta materia?');">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="{{ materia['_id'] }}">
+
+                                        <button class="boton peligro"
+                                                type="submit">
+                                            Eliminar
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- EDITAR MATERIA -->
+                        <tr id="editar-{{ materia['_id'] }}">
+                            <td colspan="5">
+                                <details>
+                                    <summary>
+                                        Editar materia:
+                                        {{ materia.get('nombre', '') }}
+                                    </summary>
+
+                                    <form class="editar"
+                                          method="POST"
+                                          action="{{ url_for('editar_materia', id=materia['_id']) }}">
+
+                                        <div class="campos">
+
+                                            <div>
+                                                <label>Clave</label>
+                                                <input name="id_materia"
+                                                       value="{{ materia.get('id_materia', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Nombre</label>
+                                                <input name="nombre"
+                                                       value="{{ materia.get('nombre', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Carrera</label>
+                                                <input name="carrera"
+                                                       value="{{ materia.get('carrera', '') }}"
+                                                       required>
+                                            </div>
+
+                                            <div>
+                                                <label>Semestre</label>
+                                                <input name="semestre"
+                                                       type="number"
+                                                       min="1"
+                                                       max="12"
+                                                       value="{{ materia.get('semestre', '') }}"
+                                                       required>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="acciones">
+                                            <button class="boton"
+                                                    type="submit">
+                                                Guardar cambios
+                                            </button>
+                                        </div>
+                                    </form>
+                                </details>
+                            </td>
+                        </tr>
+
+                        {% else %}
+                        <tr>
+                            <td colspan="5">
+                                No hay materias que mostrar.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gestion-footer">
+        Sistema de Gestión Escolar
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#editar-"]')
+            .forEach(enlace => {
+                enlace.addEventListener('click', () => {
+                    const destino = document.querySelector(
+                        enlace.getAttribute('href')
+                    );
+
+                    if (destino) {
+                        destino.querySelector('details').open = true;
+                    }
+                });
+            });
+    </script>
+
+</body>
+</html>
